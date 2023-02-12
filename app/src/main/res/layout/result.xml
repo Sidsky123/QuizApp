@@ -43,7 +43,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@android:color/white"
         android:textSize="25sp"
-        tools:text="Your Score is 9 out of 10" />
+        tools:text="Your Score is 3 out of 4" />
 
     <Button
         android:id="@+id/btn_finish"

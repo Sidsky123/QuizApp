@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.quizapp.Generate
 import kotlinx.android.synthetic.main.quiz.*
 
 class Quiz : AppCompatActivity(), View.OnClickListener {

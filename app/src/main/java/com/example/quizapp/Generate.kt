@@ -1,7 +1,4 @@
-package com.quizapp
-
-import com.example.quizapp.Question
-import com.example.quizapp.R
+package com.example.quizapp
 
 object Generate {
 
@@ -114,7 +111,14 @@ object Generate {
         )
 
         questionsList.add(que10)
+        val numbers = (1..10).toList()
+        val randomNumbers = numbers.shuffled().take(4)
+        val randomQuestions=ArrayList<Question>()
+        randomQuestions.add(questionsList[randomNumbers[0]])
+        randomQuestions.add(questionsList[randomNumbers[1]])
+        randomQuestions.add(questionsList[randomNumbers[2]])
+        randomQuestions.add(questionsList[randomNumbers[3]])
 
-        return questionsList
+        return randomQuestions
     }
 }

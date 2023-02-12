@@ -1,16 +1,15 @@
 package com.example.quizapp
 
-
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.quizapp.Generate
 import kotlinx.android.synthetic.main.quiz.*
-
 
 class Quiz : AppCompatActivity(), View.OnClickListener {
 
@@ -18,6 +17,12 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
     private var mQuestionsList: ArrayList<Question>? = null
 
     private var mSelectedOptionPosition: Int = 0
+    private var mCorrectAnswers: Int = 0
+
+    // TODO (STEP 3: Create a variable for getting the name from intent.)
+    // START
+    private var mUserName: String? = null
+    // END
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -28,7 +33,12 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
         // This is used to align the xml view to this class
         setContentView(R.layout.quiz)
 
-        mQuestionsList = Constants.getQuestions()
+        // TODO (STEP 4: Get the NAME from intent and assign it the variable.)
+        // START
+        mUserName = intent.getStringExtra(Generate.USER_NAME)
+        // END
+
+        mQuestionsList = Generate.getQuestions()
 
         setQuestion()
 
@@ -36,11 +46,7 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
         tv_option_two.setOnClickListener(this)
         tv_option_three.setOnClickListener(this)
         tv_option_four.setOnClickListener(this)
-
-        // TODO(STEP 1: Adding a click event for submit button.)
-        // START
         btn_submit.setOnClickListener(this)
-        // END
     }
 
     override fun onClick(v: View?) {
@@ -67,8 +73,6 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
                 selectedOptionView(tv_option_four, 4)
             }
 
-            // TODO(STEP 2: Adding a click event for submit button. And change the questions and check the selected answers.)
-            // START
             R.id.btn_submit -> {
 
                 if (mSelectedOptionPosition == 0) {
@@ -83,7 +87,16 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
                         }
                         else -> {
 
-                            Toast.makeText(this@Quiz, "You have successfully completed the quiz.", Toast.LENGTH_SHORT).show()
+                            // TODO (STEP 5: Now remove the toast message and launch the result screen which we have created and also pass the user name and score details to it.)
+                            // START
+                            val intent =
+                                Intent(this@Quiz, Result::class.java)
+                            intent.putExtra(Generate.USER_NAME, mUserName)
+                            intent.putExtra(Generate.CORRECT_ANSWERS, mCorrectAnswers)
+                            intent.putExtra(Generate.TOTAL_QUESTIONS, mQuestionsList!!.size)
+                            startActivity(intent)
+                            finish()
+                            // END
                         }
                     }
                 } else {
@@ -92,6 +105,9 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
                     // This is to check if the answer is wrong
                     if (question!!.correctAnswer != mSelectedOptionPosition) {
                         answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                    }
+                    else {
+                        mCorrectAnswers++
                     }
 
                     // This is for correct answer
@@ -118,14 +134,11 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
 
         defaultOptionsView()
 
-        // TODO (STEP 6: Check here if the position of question is last then change the text of the button.)
-        // START
         if (mCurrentPosition == mQuestionsList!!.size) {
             btn_submit.text = "FINISH"
         } else {
             btn_submit.text = "SUBMIT"
         }
-        // END
 
         progressBar.progress = mCurrentPosition
         tv_progress.text = "$mCurrentPosition" + "/" + progressBar.getMax()
@@ -178,8 +191,6 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    // TODO (STEP 3: Create a function for answer view.)
-    // START
     /**
      * A function for answer view which is used to highlight the answer is wrong or right.
      */
@@ -213,5 +224,4 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-    // END
 }

@@ -24,6 +24,7 @@
         <activity android:name=".SecondPage"></activity>
         <activity android:name=".Quiz"></activity>
         <activity android:name=".Question"></activity>
+        <activity android:name=".Result"></activity>
     </application>
 
 </manifest>

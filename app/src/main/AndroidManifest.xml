@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <application
 
+    <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,6 +12,11 @@
         android:theme="@style/Theme.QuizApp"
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
+        <service
+            android:name=".service"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -21,11 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondPage"></activity>
-        <activity android:name=".Quiz"></activity>
-        <activity android:name=".Question"></activity>
-        <activity android:name=".Result"></activity>
-        <activity android:name=".BackgroundMusic"></activity>
+        <activity android:name=".SecondPage" />
+        <activity android:name=".Quiz" />
+        <activity android:name=".Question" />
+        <activity android:name=".Result" />
+        <activity android:name=".BackgroundMusic" />
     </application>
 
 </manifest>

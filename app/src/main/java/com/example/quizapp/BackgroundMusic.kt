@@ -19,7 +19,7 @@ class BackgroundMusic : Service() {
         val afd = applicationContext.assets.openFd("samplemusic.mp3") as AssetFileDescriptor
         val player = MediaPlayer()
         player.setDataSource(afd.fileDescriptor)
-        player.isLooping = true // Set looping
+        player.isLooping= true // Set looping
         player.setVolume(100f, 100f)
 
     }
@@ -39,4 +39,6 @@ class BackgroundMusic : Service() {
     }
 
     fun onStop() {
-    }}
+    }
+
+}

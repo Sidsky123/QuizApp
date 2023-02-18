@@ -3,6 +3,7 @@ package com.example.quizapp
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -17,22 +18,37 @@ class Quiz : AppCompatActivity(), View.OnClickListener {
 
     private var mSelectedOptionPosition: Int = 0
     private var mCorrectAnswers: Int = 0
+    private lateinit var mediaPlayer: MediaPlayer
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //This call the parent constructor
         super.onCreate(savedInstanceState)
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.background_music)
+
+        // Start playing the audio
+        mediaPlayer.start()
+
+        // Set the audio to play continuously
+        mediaPlayer.isLooping = true
         // This is used to align the xml view to this class
         setContentView(R.layout.quiz)
+
+
 
         // TODO (STEP 4: Get the NAME from intent and assign it the variable.)
         // START
         // END
 
-        mQuestionsList = Generate.getQuestions()
+        synchronized(this) {
 
-        setQuestion()
+            mQuestionsList = Generate.getQuestions()
 
+            setQuestion()
+        }
         tv_option_one.setOnClickListener(this)
         tv_option_two.setOnClickListener(this)
         tv_option_three.setOnClickListener(this)
